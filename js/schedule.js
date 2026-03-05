@@ -1626,7 +1626,7 @@ async function loadGroup(id){
     
     if(!group) return
     selectedCourses = group.data
-    updateSelectedCoursesUI()
+    renderSelectedCourses()
     alert("تم استرجاع الجروبات")
 }
 
