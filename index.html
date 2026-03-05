@@ -1431,11 +1431,11 @@
         let selectedGroup = null;
         let currentDepartment = "all";
         //ربط بالداتا بيز
-        const supabaseUrl = "https://rvklfbigcotmqpvetgfv.supabase.co"
+       /* const supabaseUrl = "https://rvklfbigcotmqpvetgfv.supabase.co"
         const supabaseKey = "sb_publishable_8BOJaVzol98g5tMFpe4sdw_Q3noyIv-"
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey)
         //اجراءات تسجيل الدخول
-        /*async function checkUser(){
+        async function checkUser(){
             const { data } = await supabaseClient.auth.getUser()
             
             if(!data.user){
@@ -2589,7 +2589,7 @@
                 closeMenu();
             }
         }
-        async function saveGroups(name,data){
+        /*async function saveGroups(name,data){
 
             const { error } = await supabaseClient
             .from('groups')
@@ -2652,7 +2652,7 @@
         async function logout(){
             await supabaseClient.auth.signOut()
             window.location="login.html"
-        }
+        }*/
 
         window.addEventListener("scroll", () => {  
             const btns = document.querySelectorAll(".scroll-btn");  
@@ -2663,6 +2663,7 @@
     </script>
 </body>
 </html>
+
 
 
 
