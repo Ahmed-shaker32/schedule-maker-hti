@@ -905,6 +905,7 @@
         <div class="actions">
             <button id="themeBtn" onclick="toggleDarkMode()">🌙</button>
             <button onclick="toggleMenu()">☰</button>
+            <button onclick="logout()">تسجيل الخروج</button>
         </div>
     </div>
 
@@ -1002,6 +1003,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        async function checkUser(){
+            const { data } = await supabase.auth.getUser()
+            
+            if(!data.user){
+                window.location="login.html"
+            }
+        }
+
+        checkUser()
+        const { data } = await supabase.auth.getUser()
+        if(!data.user){
+            window.location="login.html"
+        }
         // 📚 الداتا المدمجة داخل الملف — مش محتاج ملف خارجي
         const embeddedData = {
           "coursesDataEEC": [
@@ -2637,6 +2651,11 @@
         
         }
 
+        async function logout(){
+            await supabase.auth.signOut()
+            window.location="login.html"
+        }
+
         window.addEventListener("scroll", () => {  
             const btns = document.querySelectorAll(".scroll-btn");  
             btns.forEach(btn => {  
@@ -2646,4 +2665,5 @@
     </script>
 </body>
 </html>
+
 
