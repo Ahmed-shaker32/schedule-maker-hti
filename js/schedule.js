@@ -1621,20 +1621,20 @@ async function loadSavedGroups(){
 }
 
 async function loadGroup(id){
+
     const groups = await loadGroupsFromDB()
     const group = groups.find(g => g.id === id)
+
+    console.log("GROUP DATA:", group)
+
     if(!group) return
 
     selectedCourses = group.data
-    selectedCourses.forEach(savedCourse=>{
-        const course = getCoursesByDepartment("all").find(c=>c.code===savedCourse.code)
-        if(course){
-            course.groups = savedCourse.groups
-            course.isActive = savedCourse.isActive
-        }
-    })
-    
+
+    console.log("SELECTED COURSES:", selectedCourses)
+
     updateSelectedCourses()
+
     alert("تم استرجاع الجروبات")
 }
 
