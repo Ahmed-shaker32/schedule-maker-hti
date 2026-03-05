@@ -930,15 +930,31 @@
             gap:10px;
             justify-content:center;
         }
+
+        .saved-groups-panel{
+            margin-top:20px;
+            padding:15px;
+            background:rgba(255,255,255,0.05);
+            border-radius:10px;
+            display:none;
+        }
+            
+        .saved-group-item{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:10px;
+            border-bottom:1px solid rgba(255,255,255,0.1);
+        }
+            
+        .saved-group-actions button{
+            margin-left:5px;
+        }
     </style>
 </head>
 <body>
     <div class="topbar">
         <div class="logo">📅 جدولي</div>
-        <div class="saved-groups-section">
-            <h3>📂 الجروبات المحفوظة</h3>
-            <div id="savedGroupsList"></div>
-        </div>
         
         <div class="actions">
             <button id="themeBtn" onclick="toggleDarkMode()">🌙</button>
@@ -1011,9 +1027,21 @@
                         <button class="btn btn-primary" onclick="exportData()">⬇️تنزيل البيانات</button>
                         <input type="file" id="importFile" style="display:none" onchange="importData(event)">
                         <button class="btn btn-success" onclick="document.getElementById('importFile').click()">⬆️استيراد البيانات</button>
-                        <button onclick="openSaveGroupsModal()" class="save-btn">
-                        💾 حفظ الجروبات
-                        </button>
+                        
+                        <div class="groups-actions">
+                            <button onclick="openSaveGroupsModal()" class="save-btn">
+                            💾 حفظ الجروبات
+                            </button>
+                            <button onclick="toggleSavedGroups()" class="load-btn">
+                            📂 الجروبات المحفوظة
+                            </button>
+                        </div>
+                        
+                        <div id="savedGroupsPanel" class="saved-groups-panel">
+                            <h3>📂 الجروبات المحفوظة</h3>
+                            <div id="savedGroupsList"></div>
+                        </div>
+                        
                     </div>
                 </div>
                 <div id="selectedCoursesList"></div>
@@ -1065,5 +1093,6 @@
     </div>
 </body>
 </html>
+
 
 
