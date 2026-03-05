@@ -1594,29 +1594,19 @@ async function confirmSaveGroups(){
         return
     }
 
-    // استخراج المواد التي تم اختيارها فعلياً
-    const coursesToSave = []
-
-    courses.forEach(course => {
-
-        if(course.groups && course.groups.length > 0){
-
-            coursesToSave.push({
-                code: course.code,
-                groups: course.groups,
-                isActive: course.isActive
-            })
-
-        }
-
-    })
-
-    console.log("COURSES TO SAVE:", coursesToSave)
-
-    if(coursesToSave.length === 0){
-        alert("لم يتم اختيار أي جروب")
+    if(!selectedCourses || selectedCourses.length === 0){
+        alert("لم يتم اختيار أي مواد")
         return
     }
+
+    // تجهيز الداتا للحفظ
+    const coursesToSave = selectedCourses.map(course => ({
+        code: course.code,
+        groups: course.groups,
+        isActive: course.isActive
+    }))
+
+    console.log("COURSES TO SAVE:", coursesToSave)
 
     await saveGroupsToDB(name, coursesToSave)
 
