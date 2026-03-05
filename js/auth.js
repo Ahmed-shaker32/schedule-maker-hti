@@ -15,9 +15,14 @@ async function checkUser() {
 }
 
 async function loginWithGoogle() {
-  await supabaseClient.auth.signInWithOAuth({
-    provider: "google"
+  const { data, error } = await supabaseClient.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: "https://schedule-maker-hti.vercel.app"
+    }
   });
+
+  if (error) console.error(error);
 }
 
 async function logout() {
