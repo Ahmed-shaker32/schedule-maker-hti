@@ -1620,3 +1620,32 @@ async function loadSavedGroups(){
         container.appendChild(div)
     })
 }
+
+async function loadGroup(id){
+    const groups = await loadGroupsFromDB()
+    const group = groups.find(g=>g.id===id)
+    selectedCourses = group.data
+    
+    updateSelectedCoursesUI()
+}
+
+async function renameGroup(id){
+    const newName = prompt("اكتب الاسم الجديد")
+    
+    if(!newName) return
+    
+    await supabaseClient
+    .from("groups")
+    .update({name:newName})
+    .eq("id",id)
+    
+    loadSavedGroups()
+}
+
+async function deleteGroup(id){
+    if(!confirm("هل تريد حذف هذه البيانات؟")) return
+    
+    await deleteGroupFromDB(id)
+    
+    loadSavedGroups()
+}
