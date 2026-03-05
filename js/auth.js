@@ -6,16 +6,32 @@ const supabaseClient = supabase.createClient(
   supabaseKey
 );
 
+// المستخدم الحالي
+let currentUser = null;
+
 async function checkUser() {
-  const { data } = await supabaseClient.auth.getUser();
+
+  const { data, error } = await supabaseClient.auth.getUser();
+
+  if (error) {
+    console.error(error);
+    return;
+  }
 
   if (!data.user) {
     window.location = "login.html";
+    return;
   }
+
+  currentUser = data.user;
+
+  console.log("User loaded:", currentUser);
+
 }
 
 async function loginWithGoogle() {
-  const { data, error } = await supabaseClient.auth.signInWithOAuth({
+
+  const { error } = await supabaseClient.auth.signInWithOAuth({
     provider: "google",
     options: {
       redirectTo: "https://schedule-maker-hti.vercel.app"
@@ -23,14 +39,19 @@ async function loginWithGoogle() {
   });
 
   if (error) console.error(error);
+
 }
 
 async function logout() {
+
   await supabaseClient.auth.signOut();
   window.location = "login.html";
+
 }
 
 async function getUser() {
+
   const { data } = await supabaseClient.auth.getUser();
   return data.user;
+
 }
