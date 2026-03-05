@@ -1076,9 +1076,10 @@
     <script src="js/database.js"></script>
     <script src="js/schedule.js"></script>    
     <script>
-        checkUser()
-        // 📚 الداتا المدمجة داخل الملف — مش محتاج ملف خارجي
-        
+        document.addEventListener("DOMContentLoaded", async () => {
+          await checkUser();
+          loadSavedGroups();
+        });
     </script>
     <div id="saveGroupsModal" class="modal">
         <div class="modal-content">
@@ -1093,6 +1094,7 @@
     </div>
 </body>
 </html>
+
 
 
 
