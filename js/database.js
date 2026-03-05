@@ -1,66 +1,97 @@
-async function saveGroupsToDB(name, data) {
+// حفظ الجروبات
 
-  const user = await getUser();
+async function saveGroupsToDB(name,data){
 
-  await supabaseClient
-    .from("groups")
+    const { error } = await supabaseClient
+    .from('groups')
     .insert([
-      {
-        name: name,
-        data: data,
-        user_id: user.id
-      }
-    ]);
+        {
+            name:name,
+            data:data,
+            user_id: currentUser.id
+        }
+    ])
+
+    if(error){
+        console.error(error)
+        alert("خطأ في الحفظ")
+    }
+
 }
 
-async function loadGroups() {
+// تحميل الجروبات
 
-  const user = await getUser();
+async function loadGroupsFromDB(){
 
-  const { data } = await supabaseClient
-    .from("groups")
-    .select("*")
-    .eq("user_id", user.id);
+    const { data,error } = await supabaseClient
+    .from('groups')
+    .select('*')
+    .eq('user_id',currentUser.id)
+    .order('created_at',{ascending:false})
 
-  return data;
+    if(error){
+        console.error(error)
+        return []
+    }
+
+    return data
 }
 
-async function deleteGroup(id) {
+// حذف جروب
 
-  await supabaseClient
-    .from("groups")
+async function deleteGroupFromDB(id){
+
+    const { error } = await supabaseClient
+    .from('groups')
     .delete()
-    .eq("id", id);
+    .eq('id',id)
+
+    if(error){
+        console.error(error)
+    }
+
 }
 
-async function saveSchedule(name, data) {
+// حفظ جدول
 
-  const user = await getUser();
+async function saveScheduleToDB(name,data){
 
-  await supabaseClient
-    .from("schedules")
+    const { error } = await supabaseClient
+    .from('schedules')
     .insert([
-      {
-        name: name,
-        data: data,
-        user_id: user.id
-      }
-    ]);
+        {
+            name:name,
+            data:data,
+            user_id: currentUser.id
+        }
+    ])
+
+    if(error){
+        console.error(error)
+    }
+
 }
 
-async function loadSchedules() {
+// تحميل الجداول
 
-  const user = await getUser();
+async function loadSchedulesFromDB(){
 
-  const { data } = await supabaseClient
-    .from("schedules")
-    .select("*")
-    .eq("user_id", user.id);
+    const { data,error } = await supabaseClient
+    .from('schedules')
+    .select('*')
+    .eq('user_id',currentUser.id)
+    .order('created_at',{ascending:false})
 
-  return data;
+    if(error){
+        console.error(error)
+        return []
+    }
+
+    return data
 }
 
-async function deleteSchedule(id) {
+//حذف الجداول
+async function deleteScheduleFromDB(id) {
 
   await supabaseClient
     .from("schedules")
