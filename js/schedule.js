@@ -1587,32 +1587,23 @@ function closeSaveGroupsModal(){
 
 async function confirmSaveGroups(){
 
-    const name = document.getElementById("groupNameInput").value.trim()
+    const name = document.getElementById("groupName").value.trim();
 
     if(!name){
-        alert("اكتب اسم الحفظ")
-        return
+        alert("اكتب اسم الحفظ");
+        return;
     }
 
     if(!selectedCourses || selectedCourses.length === 0){
-        alert("لم يتم اختيار أي مواد")
-        return
+        alert("لم يتم اختيار مواد");
+        return;
     }
 
-    // تجهيز الداتا للحفظ
-    const coursesToSave = selectedCourses.map(course => ({
-        code: course.code,
-        groups: course.groups,
-        isActive: course.isActive
-    }))
+    await saveGroupsToDB(name, selectedCourses);
 
-    console.log("COURSES TO SAVE:", coursesToSave)
+    alert("تم حفظ الجروب");
 
-    await saveGroupsToDB(name, coursesToSave)
-
-    alert("تم حفظ الجروب")
-
-    loadSavedGroups()
+    loadSavedGroups();
 }
 
 async function loadSavedGroups(){
