@@ -1001,7 +1001,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
     <script>
         // 📚 الداتا المدمجة داخل الملف — مش محتاج ملف خارجي
         const embeddedData = {
@@ -1435,7 +1435,7 @@
         const supabaseKey = "sb_publishable_8BOJaVzol98g5tMFpe4sdw_Q3noyIv-"
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey)
         //اجراءات تسجيل الدخول
-        async function checkUser(){
+        /*async function checkUser(){
             const { data } = await supabaseClient.auth.getUser()
             
             if(!data.user){
@@ -1443,7 +1443,7 @@
             }
         }
 
-        checkUser()
+        checkUser()*/
         
         // 🆕 دالة جديدة لملء القوائم المنسدلة بناءً على القسم المحدد
         function populateSelectsForDepartment(container, department) {
@@ -2663,6 +2663,7 @@
     </script>
 </body>
 </html>
+
 
 
 
