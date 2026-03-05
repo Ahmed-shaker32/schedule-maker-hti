@@ -1576,3 +1576,36 @@ const embeddedData = {
                 btn.style.opacity = window.scrollY > 200 ? "1" : "0";  
             });  
         });
+
+function openSaveGroupsModal(){
+document.getElementById("saveGroupsModal").style.display="flex"
+}
+
+function closeSaveGroupsModal(){
+
+document.getElementById("saveGroupsModal").style.display="none"
+
+}
+
+async function confirmSaveGroups(){
+
+const name = document.getElementById("groupsSaveName").value
+
+if(!name){
+
+alert("اكتب اسم الحفظ")
+
+return
+
+}
+
+const groupsData = selectedCourses
+
+await saveGroupsToDB(name,groupsData)
+
+closeSaveGroupsModal()
+
+loadSavedGroups()
+
+}
+
