@@ -896,6 +896,40 @@
             opacity: 1;
             pointer-events: all;
         }
+
+        .modal{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.6);
+            display:none;
+            align-items:center;
+            justify-content:center;
+            z-index:1000;
+        }
+        
+        .modal-content{
+            background:#111;
+            padding:20px;
+            border-radius:10px;
+            width:300px;
+            text-align:center;
+        }
+        
+        .modal input{
+            width:100%;
+            padding:10px;
+            margin-top:10px;
+        }
+        
+        .modal-buttons{
+            margin-top:15px;
+            display:flex;
+            gap:10px;
+            justify-content:center;
+        }
     </style>
 </head>
 <body>
@@ -973,6 +1007,9 @@
                         <button class="btn btn-primary" onclick="exportData()">⬇️تنزيل البيانات</button>
                         <input type="file" id="importFile" style="display:none" onchange="importData(event)">
                         <button class="btn btn-success" onclick="document.getElementById('importFile').click()">⬆️استيراد البيانات</button>
+                        <button onclick="openSaveGroupsModal()" class="save-btn">
+                        💾 حفظ الجروبات
+                        </button>
                     </div>
                 </div>
                 <div id="selectedCoursesList"></div>
@@ -1011,5 +1048,17 @@
         // 📚 الداتا المدمجة داخل الملف — مش محتاج ملف خارجي
         
     </script>
+    <div id="saveGroupsModal" class="modal">
+        <div class="modal-content">
+            <h3>حفظ الجروبات</h3>
+            <input id="groupsSaveName" placeholder="اكتب اسم الحفظ">
+            <div class="modal-buttons">
+                <button onclick="confirmSaveGroups()">حفظ</button>
+                <button onclick="closeSaveGroupsModal()">إلغاء</button>
+            </div>
+        </div>
+    
+    </div>
 </body>
 </html>
+
