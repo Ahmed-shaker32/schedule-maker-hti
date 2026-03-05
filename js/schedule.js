@@ -1602,31 +1602,32 @@ async function confirmSaveGroups(){
 async function loadSavedGroups(){
     const groups = await loadGroupsFromDB()
     const container = document.getElementById("savedGroupsList")
-    container.innerHTML=""
-
+    container.innerHTML = ""
+    
     groups.forEach(group=>{
         const div = document.createElement("div")
-
-        div.className="saved-group-item"
-
-        div.innerHTML=`
+        div.className = "saved-group-item"
+        div.innerHTML = `
         <span>${group.name}</span>
-        <div>
-           <button onclick="loadGroup('${group.id}')">تحميل</button>
-           <button onclick="renameGroup('${group.id}')">تعديل</button>
-           <button onclick="deleteGroup('${group.id}')">حذف</button>
+        <div class="saved-group-actions">
+            <button onclick="loadGroup('${group.id}')">تحميل</button>
+            <button onclick="renameGroup('${group.id}')">تعديل</button>
+            <button onclick="deleteGroup('${group.id}')">حذف</button>
         </div>
         `
         container.appendChild(div)
     })
+
 }
 
 async function loadGroup(id){
     const groups = await loadGroupsFromDB()
-    const group = groups.find(g=>g.id===id)
-    selectedCourses = group.data
+    const group = groups.find(g => g.id === id)
     
+    if(!group) return
+    selectedCourses = group.data
     updateSelectedCoursesUI()
+    alert("تم استرجاع الجروبات")
 }
 
 async function renameGroup(id){
@@ -1648,4 +1649,14 @@ async function deleteGroup(id){
     await deleteGroupFromDB(id)
     
     loadSavedGroups()
+}
+
+function toggleSavedGroups(){
+    const panel = document.getElementById("savedGroupsPanel")
+    if(panel.style.display === "none" || panel.style.display === ""){
+        panel.style.display = "block"
+        loadSavedGroups()
+    }else{
+        panel.style.display = "none"
+    }
 }
