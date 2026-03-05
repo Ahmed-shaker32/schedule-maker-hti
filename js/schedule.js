@@ -1585,16 +1585,24 @@ function closeSaveGroupsModal(){
     document.getElementById("saveGroupsModal").style.display="none"
 }
 
-async function confirmSaveGroups(){
+async function confirmSaveGroups() {
 
-    const name = document.getElementById("groupName").value.trim();
+    const input = document.getElementById("groupsSaveName");
 
-    if(!name){
+    if (!input) {
+        console.error("Input groupsSaveName not found");
+        alert("حدث خطأ في نافذة الحفظ");
+        return;
+    }
+
+    const name = input.value.trim();
+
+    if (!name) {
         alert("اكتب اسم الحفظ");
         return;
     }
 
-    if(!selectedCourses || selectedCourses.length === 0){
+    if (!selectedCourses || selectedCourses.length === 0) {
         alert("لم يتم اختيار مواد");
         return;
     }
@@ -1603,6 +1611,7 @@ async function confirmSaveGroups(){
 
     alert("تم حفظ الجروب");
 
+    closeSaveGroupsModal();
     loadSavedGroups();
 }
 
