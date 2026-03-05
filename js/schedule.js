@@ -1586,16 +1586,42 @@ function closeSaveGroupsModal(){
 }
 
 async function confirmSaveGroups(){
-    const name = document.getElementById("groupsSaveName").value
+
+    const name = document.getElementById("groupNameInput").value.trim()
 
     if(!name){
         alert("اكتب اسم الحفظ")
         return
     }
 
-    const groupsData = selectedCourses
-    await saveGroupsToDB(name,groupsData)
-    closeSaveGroupsModal()
+    // استخراج المواد التي تم اختيارها فعلياً
+    const coursesToSave = []
+
+    courses.forEach(course => {
+
+        if(course.groups && course.groups.length > 0){
+
+            coursesToSave.push({
+                code: course.code,
+                groups: course.groups,
+                isActive: course.isActive
+            })
+
+        }
+
+    })
+
+    console.log("COURSES TO SAVE:", coursesToSave)
+
+    if(coursesToSave.length === 0){
+        alert("لم يتم اختيار أي جروب")
+        return
+    }
+
+    await saveGroupsToDB(name, coursesToSave)
+
+    alert("تم حفظ الجروب")
+
     loadSavedGroups()
 }
 
