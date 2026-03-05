@@ -1003,19 +1003,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        async function checkUser(){
-            const { data } = await supabase.auth.getUser()
-            
-            if(!data.user){
-                window.location="login.html"
-            }
-        }
-
-        checkUser()
-        const { data } = await supabase.auth.getUser()
-        if(!data.user){
-            window.location="login.html"
-        }
         // 📚 الداتا المدمجة داخل الملف — مش محتاج ملف خارجي
         const embeddedData = {
           "coursesDataEEC": [
@@ -1446,7 +1433,18 @@
         //ربط بالداتا بيز
         const supabaseUrl = "https://rvklfbigcotmqpvetgfv.supabase.co"
         const supabaseKey = "sb_publishable_8BOJaVzol98g5tMFpe4sdw_Q3noyIv-"
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey)
+        //اجراءات تسجيل الدخول
+        async function checkUser(){
+            const { data } = await supabaseClient.auth.getUser()
+            
+            if(!data.user){
+                window.location="login.html"
+            }
+        }
+
+        checkUser()
+        
         // 🆕 دالة جديدة لملء القوائم المنسدلة بناءً على القسم المحدد
         function populateSelectsForDepartment(container, department) {
             const hallSelect = container.querySelector('.hall-select');
@@ -2593,7 +2591,7 @@
         }
         async function saveGroups(name,data){
 
-            const { error } = await supabase
+            const { error } = await supabaseClient
             .from('groups')
             .insert([
             {
@@ -2610,7 +2608,7 @@
 
         async function loadGroups(){
 
-            const { data } = await supabase
+            const { data } = await supabaseClient
             .from('groups')
             .select('*')
             .order('created_at',{ascending:false})
@@ -2621,7 +2619,7 @@
 
         async function deleteGroups(id){
 
-            await supabase
+            await supabaseClient
             .from('groups')
             .delete()
             .eq('id',id)
@@ -2630,7 +2628,7 @@
 
         async function saveSchedule(name,data){
 
-            await supabase
+            await supabaseClient
             .from('schedules')
             .insert([
             {
@@ -2643,7 +2641,7 @@
 
         async function loadSchedules(){
 
-            const { data } = await supabase
+            const { data } = await supabaseClient
             .from('schedules')
             .select('*')
             
@@ -2652,7 +2650,7 @@
         }
 
         async function logout(){
-            await supabase.auth.signOut()
+            await supabaseClient.auth.signOut()
             window.location="login.html"
         }
 
@@ -2665,5 +2663,6 @@
     </script>
 </body>
 </html>
+
 
 
